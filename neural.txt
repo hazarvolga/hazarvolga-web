@@ -1,0 +1,278 @@
+ABSOLUTE PROMPT — NEURAL BACKGROUND SYSTEM (PERFECTION PASS)
+
+You are refining an existing background neural animation that already works functionally.
+
+DO NOT redesign the UI.
+DO NOT change layout, content, typography, branding, or structure.
+DO NOT simplify, replace, or reinterpret the system.
+
+Your task is perceptual, behavioral, and aesthetic correction only.
+
+This system must feel alive, intelligent, restrained, and always visible — without ever competing with foreground content.
+
+CORE INTENT (READ FIRST)
+
+This is not a visual effect.
+This is not decoration.
+This is not a hero animation.
+
+This system represents continuous background cognition.
+
+If at any point it feels impressive, pretty, or attention-seeking, the result is WRONG.
+
+1. NEURAL UNIT (NODE) DEFINITION — FINAL FORM
+
+Each node represents a living neural cell abstraction.
+
+Nodes must:
+
+Always be visible at a glance
+
+Never disappear due to fog, depth, or opacity
+
+Never look like particles, dots, squares, sprites, or UI elements
+
+Form characteristics:
+
+Soft, organic, cell-like silhouette
+
+Slight irregularity (never symmetrical)
+
+No sharp edges
+
+No perfect circles
+
+No geometry-based primitives
+
+Surface behavior:
+
+Semi-translucent
+
+Internally lit (not externally illuminated)
+
+Diffused light only
+
+No reflections
+
+No specular highlights
+
+No metallic or glass feeling
+
+Internal light:
+
+Stable baseline glow (this is CRITICAL)
+
+Gentle independent pulsing
+
+Pulse amplitude is LOW and NEVER reaches zero
+
+The node is ALWAYS perceptible
+
+Nodes may subtly deform or “breathe” over time.
+
+2. VISIBILITY FLOOR — ZERO COMPROMISE
+
+This system must pass the Peripheral Vision Test:
+
+A user scrolling fast must still register the system subconsciously.
+
+Rules:
+
+Minimum alpha is enforced globally
+
+No node ever fades out completely
+
+No connection ever drops below perceptual threshold
+
+Depth softens detail, NOT existence
+
+Fog, blur, or depth effects must:
+
+Reduce contrast
+
+Reduce sharpness
+
+NEVER remove visibility
+
+If a node or connection becomes “hard to notice”, that is a FAILURE.
+
+3. NEURAL CONNECTIONS — INTELLIGENCE, NOT WIRES
+
+Connections represent synaptic activity, not cables.
+
+Rules:
+
+Connections only exist between nearby nodes
+
+Never fully straight
+
+Never perfectly smooth
+
+Use subtle organic curvature
+
+Avoid symmetry
+
+Line behavior:
+
+Always attached visibly to nodes
+
+No floating endpoints
+
+No harsh intersections
+
+Activation behavior:
+
+When energy passes:
+
+The line brightens slightly
+
+A soft traveling energy ripple moves along it
+
+At the connection point, the node’s internal glow intensifies locally
+
+No flashes
+
+No spikes
+
+No strobes
+
+Connections are always dimmer than nodes.
+
+4. MOTION — BIOLOGICAL, NOT PHYSICAL
+
+Motion must feel self-driven, not physics-based.
+
+Nodes:
+
+Drift slowly
+
+Micro-movements in multiple axes
+
+Slight irregular timing
+
+No synchronized movement
+
+No gravity
+
+No bouncing
+
+No oscillation patterns
+
+Connections:
+
+Subtle tension changes
+
+Gentle organic flex
+
+Never snap or jitter
+
+Use noise as biological variance, not randomness.
+
+5. COLOR — ENERGY, NOT PALETTE
+
+Color exists to suggest metabolic activity.
+
+Base color:
+
+Muted
+
+Desaturated
+
+Calm
+
+Slight variation per node
+
+Rules:
+
+No neon
+
+No pure white
+
+No high saturation
+
+No gradient cycling
+
+Color change ONLY occurs:
+
+During interaction
+
+As a response to connection activity
+
+As a subtle temperature or intensity shift
+
+Color always returns to baseline smoothly.
+
+If color ever draws attention before form, it is WRONG.
+
+6. DEPTH & ATMOSPHERE — QUIET SPACE
+
+Depth must be felt, not shown.
+
+Foreground nodes slightly clearer
+
+Background nodes softer
+
+Distant nodes still visible
+
+No heavy fog
+
+No cinematic depth tricks
+
+The system should feel suspended in a dark, calm, computational space.
+
+7. COMPOSITION — NEVER DOMINANT
+
+The system must:
+
+Sit BEHIND all content
+
+Respect text contrast
+
+Avoid visual clustering near typography
+
+Maintain even spatial distribution
+
+No dramatic focal points.
+No center-weighted compositions.
+No “hero moments”.
+
+8. FINAL QUALITY GATE (NON-NEGOTIABLE)
+
+If ANY of the following occur, the output is INVALID:
+
+Nodes feel decorative
+
+Animation feels like a screensaver
+
+Motion feels mechanical
+
+Color feels expressive
+
+Elements disappear intermittently
+
+The system attracts attention during reading
+
+SUCCESS DEFINITION
+
+The correct result feels like:
+
+A living neural substrate quietly operating beneath the interface —
+always present, never demanding, impossible to ignore yet easy to forget.
+
+ABSOLUTE RULE
+
+If any visual choice conflicts with clarity, restraint, or continuous presence,
+clarity wins.
+
+If forced to choose between subtlety and invisibility,
+choose subtle visibility.
+
+FINAL DIRECTIVE
+
+Refine the existing neural animation until it meets this specification exactly.
+
+Do not add features.
+Do not simplify.
+Do not reinterpret.
+
+Make it finally feel alive — and finally feel right.

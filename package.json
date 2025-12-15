@@ -9,15 +9,22 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.2",
+    "maath": "^0.10.8",
     "next": "16.0.10",
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "simplex-noise": "^4.0.3",
+    "three": "^0.182.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "baseline-browser-mapping": "^2.9.7",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "typescript": "^5"
