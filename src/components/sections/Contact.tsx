@@ -29,12 +29,27 @@ export default function Contact() {
     });
 
     const onSubmit = async (data: FormData) => {
-        // Determine subject based on message content or a default
-        // We'll just stick to a generic subject or user input if field existed
-        console.log(data);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        reset();
-        alert("Message sent successfully!");
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to send message');
+            }
+
+            reset();
+            alert("Message sent successfully! We will get back to you soon.");
+        } catch (error) {
+            console.error('Submission Error:', error);
+            alert("Failed to send message. Please try again later or email us directly at info@hazarvolga.com.tr");
+        }
     };
 
     return (
