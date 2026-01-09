@@ -1,17 +1,22 @@
-import Hero from "@/components/sections/Hero";
+import HeroGravity from "@/components/sections/HeroGravity";
 import Services from "@/components/sections/Services";
-import Work from "@/components/sections/Work";
+
+import About from "@/components/sections/About";
 import Process from "@/components/sections/Process";
-import AboutContact from "@/components/sections/AboutContact";
+import Testimonials from "@/components/sections/Testimonials";
+import Contact from "@/components/sections/Contact";
+import ParticleBackground from "@/components/effects/ParticleBackground";
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
+    <main className="min-h-screen bg-black relative">
+      <ParticleBackground />
+      <HeroGravity />
       <Services />
-      <Work />
+      <About />
       <Process />
-      <AboutContact />
+      <Testimonials />
+      <Contact />
     </main>
   );
 }
