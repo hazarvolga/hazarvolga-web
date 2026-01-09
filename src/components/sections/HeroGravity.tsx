@@ -70,7 +70,7 @@ export default function HeroGravity() {
     }, []);
 
     return (
-        <section className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center p-4">
+        <section id="hero" className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center p-4">
             <div ref={sceneRef} className="absolute inset-0 z-10 opacity-60" />
             <div className="relative z-20 text-center mix-blend-difference text-white pointer-events-none">
                 <motion.div

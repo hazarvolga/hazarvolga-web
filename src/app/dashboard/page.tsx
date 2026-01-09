@@ -35,7 +35,7 @@ export default function Dashboard() {
     const fetchStats = async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/stats");
+            const res = await fetch("/api/telemetry");
             const data = await res.json();
             if (data.pageViews) {
                 setStats(data.pageViews.reverse());

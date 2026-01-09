@@ -35,9 +35,9 @@ export function AnalyticsTracker() {
 
         const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
         if (navigator.sendBeacon) {
-            navigator.sendBeacon('/api/track', blob);
+            navigator.sendBeacon('/api/pulse', blob);
         } else {
-            fetch('/api/track', {
+            fetch('/api/pulse', {
                 method: 'POST',
                 body: blob,
                 keepalive: true
