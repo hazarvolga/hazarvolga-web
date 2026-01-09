@@ -24,7 +24,7 @@ export default function Dashboard() {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        if (password === "admin123") {
+        if (password === "Apple?*1872017") {
             setAuthorized(true);
             fetchStats();
         } else {
