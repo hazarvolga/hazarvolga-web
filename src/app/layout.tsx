@@ -8,6 +8,7 @@ import ScrollToTop from "@/components/ui/ScrollToTop";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import { AnalyticsTracker } from "@/hooks/useAnalytics";
 import { SITE_CONFIG } from "@/lib/constants";
 import "./globals.css";
 
