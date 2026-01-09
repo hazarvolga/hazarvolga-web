@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useState } from "react";
+import FeedbackModal from "../ui/FeedbackModal";
 
 // Updated validation schema
 const formSchema = z.object({
@@ -19,6 +21,18 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function Contact() {
     const { t } = useLanguage();
+    const [modalState, setModalState] = useState<{
+        isOpen: boolean;
+        type: "success" | "error";
+        title: string;
+        message: string;
+    }>({
+        isOpen: false,
+        type: "success",
+        title: "",
+        message: "",
+    });
+
     const {
         register,
         handleSubmit,
@@ -30,7 +44,7 @@ export default function Contact() {
 
     const onSubmit = async (data: FormData) => {
         try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch('/mail.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,20 +54,37 @@ export default function Contact() {
 
             const result = await response.json();
 
-            if (!response.ok) {
-                throw new Error(result.error || 'Failed to send message');
+            if (!response.ok || result.status === 'error') {
+                throw new Error(result.message || 'Failed to send message');
             }
 
             reset();
-            alert("Message sent successfully! We will get back to you soon.");
+            setModalState({
+                isOpen: true,
+                type: "success",
+                title: t.contact.form.success || "Message Sent",
+                message: "Thank you for reaching out. We will get back to you shortly.",
+            });
         } catch (error) {
             console.error('Submission Error:', error);
-            alert("Failed to send message. Please try again later or email us directly at info@hazarvolga.com.tr");
+            setModalState({
+                isOpen: true,
+                type: "error",
+                title: "Submission Failed",
+                message: t.contact.form.error || "Failed to send message. Please try again or email us directly.",
+            });
         }
     };
 
     return (
         <section id="contact" className="py-32 bg-black relative z-20 min-h-screen flex items-center">
+            <FeedbackModal
+                isOpen={modalState.isOpen}
+                type={modalState.type}
+                title={modalState.title}
+                message={modalState.message}
+                onClose={() => setModalState(prev => ({ ...prev, isOpen: false }))}
+            />
             <div className="container-wide w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32">
 

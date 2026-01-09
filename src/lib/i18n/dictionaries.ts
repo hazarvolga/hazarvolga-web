@@ -77,7 +77,9 @@ export const DICTIONARIES = {
                 messageLabel: "03 // Project Details",
                 messagePlaceholder: "Tell us about your next big idea...",
                 submitButton: "Send Request",
-                sending: "Sending..."
+                sending: "Sending...",
+                success: "Message sent successfully!",
+                error: "Failed to send message."
             }
         },
         footer: {
@@ -175,7 +177,9 @@ export const DICTIONARIES = {
                 messageLabel: "03 // Proje Detayları",
                 messagePlaceholder: "Bir sonraki büyük fikrinizi anlatın...",
                 submitButton: "Gönder",
-                sending: "Gönderiliyor..."
+                sending: "Gönderiliyor...",
+                success: "Mesajınız başarıyla gönderildi!",
+                error: "Mesaj gönderilemedi."
             }
         },
         footer: {
@@ -273,7 +277,9 @@ export const DICTIONARIES = {
                 messageLabel: "03 // Projektdetails",
                 messagePlaceholder: "Erzählen Sie uns von Ihrer nächsten großen Idee...",
                 submitButton: "Anfrage Senden",
-                sending: "Senden..."
+                sending: "Senden...",
+                success: "Nachricht erfolgreich gesendet!",
+                error: "Nachricht konnte nicht gesendet werden."
             }
         },
         footer: {
@@ -371,7 +377,9 @@ export const DICTIONARIES = {
                 messageLabel: "03 // Détails du Projet",
                 messagePlaceholder: "Parlez-nous de votre prochaine grande idée...",
                 submitButton: "Envoyer la Demande",
-                sending: "Envoi..."
+                sending: "Envoi...",
+                success: "Message envoyé avec succès !",
+                error: "Échec de l'envoi du message."
             }
         },
         footer: {
