@@ -29,6 +29,37 @@ test("essential portfolio is rendered in Turkish, without waiting for JavaScript
   assert.doesNotMatch(html, /visibility:\s*hidden/);
 });
 
+test("the working desk and its surrounding portfolio stay useful without JavaScript", async () => {
+  const { response, html } = await page("/");
+  assert.equal(response.status, 200);
+  assert.match(html, /Masadan parçalar/);
+
+  // The physics enhancement must never be required to render the real work.
+  for (const source of [
+    "/portfolio/tc7.jpg",
+    "/portfolio/typography-5.jpg",
+    "/portfolio/affexai.jpg",
+    "/portfolio/jhm3.jpg",
+  ]) {
+    const image = [...html.matchAll(/<img\b[^>]*>/g)]
+      .map(([tag]) => tag)
+      .find((tag) => tag.includes(`src="${source}"`));
+    assert.ok(image, `${source} must render before hydration`);
+    assert.match(image, /\balt="[^"]+"/, `${source} needs a useful alternative`);
+  }
+
+  for (const href of [
+    "/calismalar/bosch-respect",
+    "/calismalar/jhm-studio",
+    "/hakkimizda",
+    "/iletisim",
+  ]) {
+    assert.ok(html.includes(`href="${href}"`), `${href} remains a native link`);
+  }
+  assert.match(html, /Hülya Ekiz/);
+  assert.match(html, /Hazar Volga Ekiz/);
+});
+
 test("public routes, project details and image files are available", async () => {
   for (const path of [
     "/calismalar",

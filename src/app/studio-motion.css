@@ -1,0 +1,78 @@
+/* Motion is a progressive enhancement; every work and caption is visible at rest. */
+.project-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  pointer-events: none;
+}
+.project-link:is(:hover, :focus-visible) .project-cover::after {
+  transform: scaleY(1);
+}
+.project-link:focus-visible .project-open {
+  background: var(--paper);
+  color: var(--ink);
+}
+.service-row:focus-visible {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-art-main img,
+  .hero-art-secondary img {
+    animation: artwork-unfold 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-art-secondary img {
+    animation-delay: 100ms;
+  }
+  .hero-copy h1 {
+    animation: heading-arrive 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .project-cover::after {
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .project-open {
+    transition:
+      transform 220ms ease,
+      background 160ms ease,
+      color 160ms ease;
+  }
+  .service-row h3,
+  .service-arrow {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .project-link:is(:hover, :focus-visible) .project-open,
+  .service-row:is(:hover, :focus-visible) .service-arrow {
+    transform: translate(3px, -3px);
+  }
+  .service-row:is(:hover, :focus-visible) h3 {
+    transform: translateX(4px);
+  }
+  @keyframes artwork-unfold {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes heading-arrive {
+    from {
+      transform: translateY(10px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+@media (min-width: 721px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-art-main {
+    transform: translateY(var(--art-drift, 0px));
+  }
+  .hero-art-secondary {
+    transform: translateY(calc(var(--art-drift, 0px) * -0.65));
+  }
+}

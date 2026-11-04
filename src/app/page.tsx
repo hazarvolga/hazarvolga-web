@@ -4,6 +4,8 @@ import { projects } from "@/lib/portfolio";
 import { services } from "@/lib/studio-services";
 import { ProjectCard } from "@/components/studio/ProjectCard";
 import { ContactBand } from "@/components/studio/Shell";
+import { HeroArtwork } from "@/components/studio/HeroArtwork";
+import { WorkingDesk } from "@/components/studio/WorkingDesk";
 
 export default function Home() {
   return (
@@ -37,7 +39,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="hero-art">
+          <HeroArtwork>
             <Link href="/calismalar/bosch-respect" className="hero-art-main">
               <Image
                 src="/portfolio/respect2.jpg"
@@ -73,7 +75,7 @@ export default function Home() {
                 Birlikte üretilen işler.
               </p>
             </div>
-          </div>
+          </HeroArtwork>
         </div>
         <div className="hero-baseline">
           <span>Fikirden uygulamaya, aynı masada.</span>
@@ -145,10 +147,8 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section className="duo-section wrap">
-        <div className="duo-word" aria-hidden="true">
-          h<span>&</span>h.
-        </div>
+      <section className="duo-section wrap" id="calisma-masasi">
+        <WorkingDesk />
         <div className="duo-copy">
           <h2>
             İki isim.

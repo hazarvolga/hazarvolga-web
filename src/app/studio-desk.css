@@ -1,0 +1,133 @@
+.working-desk {
+  min-width: 0;
+  align-self: center;
+}
+.desk-heading,
+.desk-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.desk-heading {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.desk-heading > span:last-child {
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+.desk-surface {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.15;
+  isolation: isolate;
+  overflow: hidden;
+}
+.desk-print {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(85px, 13vw, 180px);
+  letter-spacing: -0.1em;
+  color: #35352f;
+  pointer-events: none;
+  user-select: none;
+}
+.desk-print > span {
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: #594b3e;
+  margin-inline: 2px;
+}
+.studio-body .desk-piece {
+  position: absolute;
+  width: 40%;
+  padding: 7px 7px 0;
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 4px 9px #0003;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  touch-action: pan-y;
+  cursor: default;
+}
+.working-desk[data-interactive="true"] .desk-piece {
+  cursor: grab;
+}
+.working-desk .desk-piece[data-dragging="true"] {
+  cursor: grabbing;
+}
+.desk-piece:focus-visible {
+  outline-offset: 4px;
+  z-index: 5;
+}
+.studio-body .desk-piece img {
+  width: 100%;
+  aspect-ratio: 1.4;
+  object-fit: contain;
+  pointer-events: none;
+  background: #d6d3cc;
+}
+.desk-piece-caption {
+  min-height: 27px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  line-height: 1.2;
+  font-weight: 600;
+  pointer-events: none;
+}
+.desk-piece-caption > span:last-child {
+  color: #766450;
+  font-size: 8px;
+}
+.desk-toolbar {
+  min-height: 50px;
+  border-top: 1px solid var(--line);
+}
+.desk-toolbar > p {
+  font-size: 10px;
+  max-width: 250px;
+}
+.desk-toolbar button {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 6px 0 6px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-size: 11px;
+}
+.desk-toolbar button > span {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 18px;
+}
+@media (max-width: 720px) {
+  .desk-surface {
+    aspect-ratio: 1.2;
+  }
+  .desk-print {
+    font-size: clamp(80px, 25vw, 160px);
+  }
+  .studio-body .desk-piece {
+    padding: 5px 5px 0;
+  }
+  .desk-piece-caption {
+    font-size: 8px;
+    min-height: 23px;
+  }
+}

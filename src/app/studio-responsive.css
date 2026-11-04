@@ -1,16 +1,3 @@
-@media (prefers-reduced-motion: no-preference) {
-  .hero-art {
-    animation: studio-enter 700ms ease-out both;
-  }
-  @keyframes studio-enter {
-    from {
-      opacity: 0.65;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .studio-body *,
   .studio-body *::before,

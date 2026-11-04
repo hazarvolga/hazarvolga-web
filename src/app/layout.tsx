@@ -5,6 +5,8 @@ import "./globals.css";
 import "./studio.css";
 import "./studio-pages.css";
 import "./studio-responsive.css";
+import "./studio-motion.css";
+import "./studio-desk.css";
 
 const syne = Syne({
   subsets: ["latin"],
