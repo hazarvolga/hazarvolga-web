@@ -76,6 +76,60 @@
 .skip-link:focus {
   top: 12px;
 }
+
+.analytics-consent {
+  position: fixed;
+  z-index: 1000;
+  right: 24px;
+  bottom: 24px;
+  width: min(460px, calc(100vw - 48px));
+  padding: 20px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--ink) 96%, transparent);
+  box-shadow: 0 18px 60px rgb(0 0 0 / 35%);
+}
+.analytics-consent p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.analytics-consent > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+.analytics-consent button {
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+}
+.analytics-consent .analytics-consent-accept {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--ink);
+}
+.analytics-consent-settings {
+  position: fixed;
+  z-index: 999;
+  right: 16px;
+  bottom: 16px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: var(--ink);
+  color: var(--muted);
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
 .studio-header {
   min-height: 104px;
   display: flex;

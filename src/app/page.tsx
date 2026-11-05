@@ -17,7 +17,7 @@ export default function Home() {
       <section className="home-hero wrap">
         <div className="hero-neural-field"><NeuralArtwork /></div>
         <div className="hero-intro">
-          <span>İstanbul merkezli bağımsız kreatif & dijital stüdyo</span>
+          <span>Bağımsız kreatif & dijital stüdyo</span>
           <span>Hazar & Hülya Ekiz</span>
         </div>
         <div className="hero-grid">

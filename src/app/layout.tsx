@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Syne, Manrope } from "next/font/google";
 import { StudioHeader, StudioFooter } from "@/components/studio/Shell";
+import { GoogleAnalyticsConsent } from "@/components/analytics/GoogleAnalyticsConsent";
 import "./globals.css";
 import "./studio.css";
 import "./studio-pages.css";
@@ -49,6 +50,10 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const locale = (await headers()).get("x-studio-locale") === "en" ? "en" : (await headers()).get("x-studio-locale") === "de" ? "de" : "tr";
+  const configuredMeasurementId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? "G-RVL7BVMCHT";
+  const measurementId = /^G-[A-Z0-9]+$/.test(configuredMeasurementId)
+    ? configuredMeasurementId
+    : "G-RVL7BVMCHT";
   return (
     <html lang={locale}>
       <body className={`${syne.variable} ${manrope.variable} studio-body`}>
@@ -60,6 +65,7 @@ export default async function RootLayout({
           {children}
         </main>
         <StudioFooter locale={locale} />
+        <GoogleAnalyticsConsent locale={locale} measurementId={measurementId} />
       </body>
     </html>
   );

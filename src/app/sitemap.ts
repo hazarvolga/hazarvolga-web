@@ -1,6 +1,12 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/lib/portfolio";
 
+const serviceRoutes = [
+  "/freelance-web-tasarimci",
+  "/freelance-grafik-tasarimci",
+  "/ai-otomasyon-ozel-yazilim",
+] as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
@@ -8,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/hizmetler",
     "/hakkimizda",
     "/iletisim",
+    "/gizlilik",
+    ...serviceRoutes,
     ...projects.map((project) => `/calismalar/${project.slug}`),
   ];
   return routes.flatMap((route) => {

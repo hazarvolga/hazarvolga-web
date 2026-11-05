@@ -21,7 +21,7 @@ export default function AboutContact() {
         </div>
 
         <div className="locations">
-          <p>Istanbul — Remote Worldwide</p>
+          <p>Remote collaboration</p>
         </div>
       </div>
 

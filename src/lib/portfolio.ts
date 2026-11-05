@@ -68,9 +68,13 @@ type WebProjectInput = Omit<
   "cover" | "coverAlt" | "images" | "credits"
 > & {
   readonly credits?: Project["credits"];
+  readonly additionalImages?: Project["images"];
 };
 
-function webProject(input: WebProjectInput): Project {
+function webProject({
+  additionalImages = [],
+  ...input
+}: WebProjectInput): Project {
   const image = photo(
     input.slug,
     `${input.title} web arayüzünün ekran görüntüsü`,
@@ -79,7 +83,7 @@ function webProject(input: WebProjectInput): Project {
     ...input,
     cover: image.src,
     coverAlt: image.alt,
-    images: [image],
+    images: [image, ...additionalImages],
     credits: input.credits ?? webCredits,
   };
 }
@@ -136,9 +140,35 @@ export const projects: readonly Project[] = [
     subtitle: "Yapay zekâ destekli destek talebi platformu",
     category: "Dijital ürün",
     summary:
-      "Allplan.net.tr üzerinde aktif olarak kullanılan, yapay zekâ destekli bir support ticket platformu. Destek taleplerinin yönetimini ve kullanıcıların yardım alma sürecini aynı dijital üründe buluşturuyor.",
+      "Allplan.net.tr üzerinde aktif olarak kullanılan, yapay zekâ destekli bir support ticket ve CRM platformu. Destek taleplerini, kurumsal bilgiyi ve müşteri operasyonlarını aynı dijital üründe buluşturuyor.",
     approach:
-      "Destek talebi deneyimi ve yapay zekâ desteği, günlük kullanımın parçası olan bir platform içinde birlikte ele alındı. Eğitim kaynakları ve yazılım bağlantıları bu destek deneyimini tamamlıyor. Portfolyoda platformun herkese açık arayüzü gösteriliyor.",
+      "PostgreSQL ve pgvector tabanlı RAG katmanı, doğrulanmış dokümanları ve bilgi havuzunu kaynaklarıyla birlikte geri getiriyor. Çözülen talepler ile tekrarlayan düşük güvenli ve no-match sorgulardan FAQ adayları üretiliyor; kaynak izleme, PII maskeleme ve semantik tekilleştirme sonrasında yalnız insan onaylı öğrenme döngüsüyle bilgi bankasına aktarılıyor. RAG kalite, no-match ve deflection telemetrisi; sistem topolojisi ve CRM entegrasyonuyla birlikte yönetiliyor.",
+    additionalImages: [
+      {
+        src: "/portfolio/aluplan-destek-faq-learning.webp",
+        alt: "Aluplan Destek insan onaylı FAQ öğrenme döngüsü",
+        width: 2748,
+        height: 1064,
+      },
+      {
+        src: "/portfolio/aluplan-destek-system-topology.webp",
+        alt: "Aluplan Destek RAG ve servis sistem topolojisi",
+        width: 2744,
+        height: 1608,
+      },
+      {
+        src: "/portfolio/aluplan-destek-ai-intelligence.webp",
+        alt: "Aluplan Destek RAG kalite ve yapay zekâ telemetrisi",
+        width: 2744,
+        height: 1615,
+      },
+      {
+        src: "/portfolio/aluplan-destek-crm.webp",
+        alt: "Aluplan Destek CRM operasyon ekranı",
+        width: 2744,
+        height: 420,
+      },
+    ],
     credits: [
       {
         label: "Web ve AI destekli platform geliştirme",
@@ -147,7 +177,7 @@ export const projects: readonly Project[] = [
     ],
     status: "Aktif kullanımda",
     website: "https://allplan.net.tr/tr",
-    featured: false,
+    featured: true,
     tone: "dark",
   }),
   webProject({
@@ -209,6 +239,18 @@ export const projects: readonly Project[] = [
         alt: "SIGNAL kurumsal erişim ve e-posta giriş ekranı",
         width: 1440,
         height: 1000,
+      },
+      {
+        src: "/portfolio/signal-workspace-journeys.webp",
+        alt: "SIGNAL otomasyon ve müşteri yolculukları çalışma alanı",
+        width: 1440,
+        height: 900,
+      },
+      {
+        src: "/portfolio/signal-insights.webp",
+        alt: "SIGNAL raporlama ve kampanya içgörüleri ekranı",
+        width: 1440,
+        height: 900,
       },
     ],
     summary:
@@ -302,7 +344,8 @@ export const projects: readonly Project[] = [
     approach:
       "Yeni başlayanların ve deneyimli kullanıcıların ihtiyaçları ayrı giriş noktalarıyla ele alındı. İçerik kategorileri, rehberler ve araç sayfaları aynı gezinme yapısında buluşuyor.",
     website: "https://fpvlovers.com.tr/",
-    featured: true,
+    status: "Geliştirme aşamasında",
+    featured: false,
     tone: "dark",
   }),
   {

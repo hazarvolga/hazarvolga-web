@@ -11,6 +11,8 @@ export const services = [
     ],
     example: "bosch-respect",
     exampleLabel: "Bosch kampanya çalışması",
+    landing: "freelance-grafik-tasarimci",
+    landingLabel: "Freelance grafik tasarım hizmetini inceleyin",
   },
   {
     id: "gorsel-kimlik",
@@ -24,6 +26,8 @@ export const services = [
     ],
     example: "travel-cafe",
     exampleLabel: "Travel Cafe görsel kimliği",
+    landing: "freelance-grafik-tasarimci",
+    landingLabel: "Freelance grafik tasarım hizmetini inceleyin",
   },
   {
     id: "web-tasarimi",
@@ -37,6 +41,8 @@ export const services = [
     ],
     example: "aluplan",
     exampleLabel: "Aluplan web deneyimi",
+    landing: "freelance-web-tasarimci",
+    landingLabel: "Freelance web tasarım hizmetini inceleyin",
   },
   {
     id: "dijital-urun",
@@ -50,5 +56,7 @@ export const services = [
     ],
     example: "bimmetraj",
     exampleLabel: "BIMMetraj ürün geliştirme süreci",
+    landing: "ai-otomasyon-ozel-yazilim",
+    landingLabel: "AI otomasyon ve özel yazılım hizmetini inceleyin",
   },
 ] as const;

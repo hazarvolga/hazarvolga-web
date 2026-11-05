@@ -67,7 +67,7 @@ export const DICTIONARIES = {
             titleAccent: "impact",
             desc: "Ready to start your project? Fill out the form or email us directly at:",
             locationTitle: "Location",
-            location: "Istanbul, TR",
+            location: "Remote",
             socialsTitle: "Socials",
             form: {
                 nameLabel: "01 // Name",
@@ -167,7 +167,7 @@ export const DICTIONARIES = {
             titleAccent: "yarat",
             desc: "Projenize başlamaya hazır mısınız? Formu doldurun veya bize doğrudan e-posta gönderin:",
             locationTitle: "Konum",
-            location: "İstanbul, TR",
+            location: "Uzaktan çalışma",
             socialsTitle: "Sosyal Medya",
             form: {
                 nameLabel: "01 // İsim",
@@ -267,7 +267,7 @@ export const DICTIONARIES = {
             titleAccent: "wirkung",
             desc: "Bereit für Ihr Projekt? Füllen Sie das Formular aus oder mailen Sie uns direkt:",
             locationTitle: "Standort",
-            location: "Istanbul, TR",
+            location: "Remote",
             socialsTitle: "Sozial",
             form: {
                 nameLabel: "01 // Name",
@@ -367,7 +367,7 @@ export const DICTIONARIES = {
             titleAccent: "l'impact",
             desc: "Prêt à démarrer votre projet ? Remplissez le formulaire ou envoyez-nous un e-mail directement :",
             locationTitle: "Emplacement",
-            location: "Istanbul, TR",
+            location: "Remote",
             socialsTitle: "Sociaux",
             form: {
                 nameLabel: "01 // Nom",

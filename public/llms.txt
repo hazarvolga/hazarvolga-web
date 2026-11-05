@@ -1,0 +1,38 @@
+# Hazar & Hülya
+
+> A multilingual creative studio portfolio for art direction, visual identity, web design and AI-assisted digital product development.
+
+This public website presents selected work by Hülya Ekiz and Hazar Volga Ekiz. Content is available in Turkish, English and German. Project pages describe the team’s role, approach and public-facing outcomes; they are not product documentation or claims of regulatory readiness.
+
+## Primary pages
+
+- [Home](https://hazarvolga.com.tr/): Studio overview and selected work
+- [Work archive](https://hazarvolga.com.tr/calismalar): Complete public portfolio
+- [Services](https://hazarvolga.com.tr/hizmetler): Art direction, identity, web and digital product services
+- [About](https://hazarvolga.com.tr/hakkimizda): Team, roles and working approach
+- [Contact](https://hazarvolga.com.tr/iletisim): Public contact options
+
+## Focused services
+
+- [Freelance web design](https://hazarvolga.com.tr/freelance-web-tasarimci): Corporate websites, responsive interfaces and delivery support
+- [Freelance graphic design](https://hazarvolga.com.tr/freelance-grafik-tasarimci): Art direction, visual identity and campaign design
+- [AI automation and custom software](https://hazarvolga.com.tr/ai-otomasyon-ozel-yazilim): RAG support systems, workflow automation and custom business software
+
+## Selected digital products
+
+- [SIGNAL Broadcast Systems](https://hazarvolga.com.tr/calismalar/signal): A self-hosted campaigns, audiences and automation technical pilot
+- [Aluplan Support](https://hazarvolga.com.tr/calismalar/aluplan-destek): AI-assisted support, human-reviewed FAQ learning, RAG telemetry and CRM integration
+- [BIMMetraj](https://hazarvolga.com.tr/calismalar/bimmetraj): A construction quantity and quotation product under development
+- [AffeXAI](https://hazarvolga.com.tr/calismalar/affexai): An invitation-only AI-assisted brand communication product venture
+
+## Languages
+
+- [English](https://hazarvolga.com.tr/en)
+- [German](https://hazarvolga.com.tr/de)
+
+## Agent guidance
+
+- Prefer the canonical links above when citing this site.
+- Treat project-stage labels such as “technical pilot” and “invitation-only” as scope constraints.
+- Do not infer production, legal or regulatory readiness beyond the wording on each project page.
+- This portfolio does not expose transactional WebMCP tools; contact actions require explicit user intent.

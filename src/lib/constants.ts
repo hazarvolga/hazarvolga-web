@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
     contact: {
         email: "info@hazarvolga.com.tr",
         phone: "+90 (555) 123-4567",
-        address: "Istanbul, Turkey",
+        address: "Remote",
     },
 };
 

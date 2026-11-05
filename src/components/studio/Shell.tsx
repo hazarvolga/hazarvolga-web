@@ -19,9 +19,9 @@ export function Wordmark() {
 
 type Locale = "tr" | "en" | "de";
 const text = {
- tr: {links:["Çalışmalar", "Hizmetler", "Hakkımızda"], contact:"Projenizi konuşalım", home:"Hazar ve Hülya ana sayfa", nav:"Ana gezinme", footer:"Sanat yönetimi. Tasarım. Dijital üretim.", contactLink:"İletişim", band:"Aklınızda bir proje mi var?", start:"Birlikte başlayalım.", hint:"Önce ihtiyacınızı dinleyelim. Sonra birlikte kapsamı belirleyelim."},
- en: {links:["Work", "Services", "About"], contact:"Discuss your project", home:"Hazar and Hülya home", nav:"Main navigation", footer:"Art direction. Design. Digital production.", contactLink:"Contact", band:"Have a project in mind?", start:"Let’s start together.", hint:"We’ll listen to your needs and define the scope together."},
- de: {links:["Arbeiten", "Leistungen", "Über uns"], contact:"Projekt besprechen", home:"Hazar und Hülya Startseite", nav:"Hauptnavigation", footer:"Art Direction. Design. Digitale Umsetzung.", contactLink:"Kontakt", band:"Haben Sie ein Projekt im Sinn?", start:"Lassen Sie uns beginnen.", hint:"Wir hören Ihnen zu und definieren gemeinsam den Umfang."},
+ tr: {links:["Çalışmalar", "Hizmetler", "Hakkımızda"], contact:"Projenizi konuşalım", home:"Hazar ve Hülya ana sayfa", nav:"Ana gezinme", footer:"Sanat yönetimi. Tasarım. Dijital üretim.", contactLink:"İletişim", privacy:"Gizlilik ve Çerezler", band:"Aklınızda bir proje mi var?", start:"Birlikte başlayalım.", hint:"Önce ihtiyacınızı dinleyelim. Sonra birlikte kapsamı belirleyelim."},
+ en: {links:["Work", "Services", "About"], contact:"Discuss your project", home:"Hazar and Hülya home", nav:"Main navigation", footer:"Art direction. Design. Digital production.", contactLink:"Contact", privacy:"Privacy and Cookies", band:"Have a project in mind?", start:"Let’s start together.", hint:"We’ll listen to your needs and define the scope together."},
+ de: {links:["Arbeiten", "Leistungen", "Über uns"], contact:"Projekt besprechen", home:"Hazar und Hülya Startseite", nav:"Hauptnavigation", footer:"Art Direction. Design. Digitale Umsetzung.", contactLink:"Kontakt", privacy:"Datenschutz und Cookies", band:"Haben Sie ein Projekt im Sinn?", start:"Lassen Sie uns beginnen.", hint:"Wir hören Ihnen zu und definieren gemeinsam den Umfang."},
 } as const;
 export function StudioHeader({locale = "tr"}: {locale?: Locale}) {
   const t = text[locale];
@@ -60,7 +60,7 @@ export function StudioFooter({locale = "tr"}: {locale?: Locale}) {
         <p>{t.footer}</p>
       </div>
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Hazar & Hülya · İstanbul</span>
+        <span>© {new Date().getFullYear()} Hazar & Hülya</span>
         <div>
           <a
             href="https://www.linkedin.com/in/hazar-volga-ekiz-freelancer/"
@@ -77,6 +77,7 @@ export function StudioFooter({locale = "tr"}: {locale?: Locale}) {
             GitHub ↗
           </a>
           <Link href={`${prefix}/iletisim`}>{t.contactLink} ↗</Link>
+          <Link href={`${prefix}/gizlilik`}>{t.privacy}</Link>
         </div>
       </div>
     </footer>

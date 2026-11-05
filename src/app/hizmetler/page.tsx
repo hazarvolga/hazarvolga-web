@@ -42,6 +42,9 @@ export default function ServicesPage() {
                 >
                   {service.exampleLabel} ↗
                 </Link>
+                <Link className="text-link service-landing-link" href={`/${service.landing}`}>
+                  {service.landingLabel} →
+                </Link>
               </div>
             </section>
           ))}

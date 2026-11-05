@@ -35,8 +35,6 @@ export default function ContactPage() {
             Bağlantıya tıkladığınızda e-posta uygulamanız açılır.
           </p>
           <p className="contact-location">
-            İstanbul, Türkiye
-            <br />
             Uzaktan birlikte çalışabiliriz.
           </p>
         </div>

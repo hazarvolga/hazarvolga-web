@@ -2,7 +2,7 @@
 
 /* eslint-disable react-hooks/immutability -- Original scene keeps mutable GPU simulation state outside React rendering. */
 
-import { useFrame } from "@react-three/fiber";
+import { useFrame, type ThreeElements } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { createNoise3D } from "simplex-noise";
@@ -329,7 +329,10 @@ function LivingNeuralSystem({ active }: { active: boolean }) {
 
     return (
         <group ref={groupRef}>
-            <points ref={pointsRef} geometry={pointsGeo}>
+            <points
+                ref={pointsRef}
+                geometry={pointsGeo as unknown as NonNullable<ThreeElements["points"]["geometry"]>}
+            >
                 <shaderMaterial
                     ref={shaderRef}
                     vertexShader={nodeVertexShader}
@@ -340,7 +343,10 @@ function LivingNeuralSystem({ active }: { active: boolean }) {
                     blending={THREE.AdditiveBlending}
                 />
             </points>
-            <lineSegments ref={linesRef} geometry={linesGeo}>
+            <lineSegments
+                ref={linesRef}
+                geometry={linesGeo as unknown as NonNullable<ThreeElements["lineSegments"]["geometry"]>}
+            >
                 <lineBasicMaterial
                     vertexColors
                     transparent

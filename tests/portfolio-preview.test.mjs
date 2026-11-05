@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 
 const base = process.env.PREVIEW_URL || "http://127.0.0.1:3000";
 const page = async (path) => {
@@ -11,12 +12,43 @@ const page = async (path) => {
   return { response, html };
 };
 
-test("production health, SEO and security boundaries are active", async () => {
-  const [home, health, robots, sitemap] = await Promise.all([
+const jsonLdObjects = (html) =>
+  [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)]
+    .map(([, source]) => JSON.parse(source));
+
+const objectsWithType = (value, type) => {
+  if (Array.isArray(value)) {
+    return value.flatMap((entry) => objectsWithType(entry, type));
+  }
+  if (!value || typeof value !== "object") return [];
+
+  const declaredTypes = Array.isArray(value["@type"])
+    ? value["@type"]
+    : [value["@type"]];
+  const matches = declaredTypes.includes(type) ? [value] : [];
+  return [
+    ...matches,
+    ...Object.values(value).flatMap((entry) => objectsWithType(entry, type)),
+  ];
+};
+
+test("desktop language switch stays boxed and vertically centered at the right edge", async () => {
+  const css = await readFile(new URL("../src/app/studio-neural.css", import.meta.url), "utf8");
+  assert.match(css, /\.language-switch\s*\{[^}]*position:\s*fixed/i);
+  assert.match(css, /\.language-switch\s*\{[^}]*right:\s*0/i);
+  assert.match(css, /\.language-switch\s*\{[^}]*top:\s*50%/i);
+  assert.match(css, /\.language-switch\s*\{[^}]*flex-direction:\s*column/i);
+  assert.match(css, /\.language-switch\s+a\s*\{[^}]*border(?:-[a-z]+)?:/i);
+  assert.match(css, /@media\s*\(max-width:\s*720px\)[\s\S]*\.language-switch\s*\{[^}]*flex-direction:\s*row/i);
+});
+
+test("production health, SEO, agent discovery and security boundaries are active", async () => {
+  const [home, health, robots, sitemap, llms] = await Promise.all([
     fetch(`${base}/`),
     fetch(`${base}/api/health`),
     fetch(`${base}/robots.txt`),
     fetch(`${base}/sitemap.xml`),
+    fetch(`${base}/llms.txt`),
   ]);
 
   assert.equal(home.status, 200);
@@ -27,6 +59,12 @@ test("production health, SEO and security boundaries are active", async () => {
   assert.equal((await health.json()).status, "ok");
   assert.match(await robots.text(), /https:\/\/hazarvolga\.com\.tr\/sitemap\.xml/);
   assert.match(await sitemap.text(), /https:\/\/hazarvolga\.com\.tr\/calismalar\/signal/);
+  assert.equal(llms.status, 200);
+  assert.match(llms.headers.get("content-type") ?? "", /^text\/plain/i);
+  const llmsText = await llms.text();
+  assert.match(llmsText, /^# Hazar & Hülya/m);
+  assert.match(llmsText, /\[Work archive\]\(https:\/\/hazarvolga\.com\.tr\/calismalar\)/);
+  assert.match(llmsText, /\[Contact\]\(https:\/\/hazarvolga\.com\.tr\/iletisim\)/);
 
   for (const path of [
     "/dashboard",
@@ -38,11 +76,62 @@ test("production health, SEO and security boundaries are active", async () => {
   }
 });
 
+test("Google Analytics is consent-aware and uses the configured GA4 property", async () => {
+  const { html } = await page("/");
+  const consentSource = await readFile(
+    new URL("../src/components/analytics/GoogleAnalyticsConsent.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(html, /G-RVL7BVMCHT/);
+  assert.match(html, /Analitik çerezlerini kabul et/i);
+  assert.match(html, /Analitik çerezlerini reddet/i);
+  assert.match(html, /analytics-consent/i);
+  assert.match(html, /href="\/gizlilik"/i);
+  assert.doesNotMatch(html, /<script[^>]+src="https:\/\/www\.googletagmanager\.com\/gtag\/js/i);
+  assert.match(consentSource, /analytics_storage:\s*"denied"/);
+  assert.match(consentSource, /ga-disable-/);
+  assert.match(consentSource, /deleteAnalyticsCookies/);
+  assert.match(consentSource, /policyVersion/);
+});
+
+test("the privacy notice explains KVKK, GDPR and analytics choices", async () => {
+  const { response, html } = await page("/gizlilik");
+  assert.equal(response.status, 200);
+  assert.match(html, /KVKK/);
+  assert.match(html, /GDPR/);
+  assert.match(html, /Google Analytics/i);
+  assert.match(html, /info@hazarvolga\.com\.tr/);
+  assert.match(html, /çerez tercih/i);
+});
+
 test("Aluplan Destek communicates its active AI support ticket role", async () => {
   const { html } = await page("/calismalar/aluplan-destek");
   assert.match(html, /Yapay zekâ destekli destek talebi platformu/);
   assert.match(html, /Aktif kullanımda/);
   assert.match(html, /support ticket/i);
+  for (const capability of [
+    /PostgreSQL/i,
+    /pgvector/i,
+    /RAG/i,
+    /FAQ/i,
+    /insan onaylı/i,
+    /PII maskeleme/i,
+    /semantik tekilleştirme/i,
+    /no-match/i,
+    /deflection/i,
+    /CRM/i,
+  ]) {
+    assert.match(html, capability);
+  }
+  for (const image of [
+    "/portfolio/aluplan-destek-faq-learning.webp",
+    "/portfolio/aluplan-destek-system-topology.webp",
+    "/portfolio/aluplan-destek-ai-intelligence.webp",
+    "/portfolio/aluplan-destek-crm.webp",
+  ]) {
+    assert.ok(html.includes(image), `${image} must be shown in the project`);
+  }
+  assert.doesNotMatch(html, /tam otonom|kendi kendine hatasız öğren/i);
   assert.match(html, /href="https:\/\/allplan\.net\.tr\/tr"/);
 });
 
@@ -183,6 +272,8 @@ test("Signal is presented as a controlled pilot with a public landing and sign-i
   for (const image of [
     "/portfolio/signal-landing.png",
     "/portfolio/signal-login.png",
+    "/portfolio/signal-workspace-journeys.webp",
+    "/portfolio/signal-insights.webp",
   ]) {
     assert.ok(html.includes(image), `${image} must be shown in the project`);
   }
@@ -254,4 +345,148 @@ test("contact honestly opens email instead of faking a delivered request", async
   assert.match(html, /href="mailto:info@hazarvolga.com.tr/);
   assert.match(html, /e-posta uygulamanız/i);
   assert.doesNotMatch(html, /<form\b|mail\.php|Mesajınız gönderildi/);
+});
+
+test("Turkish service landing pages render trustworthy evidence without JavaScript", async () => {
+  const services = [
+    {
+      slug: "freelance-web-tasarimci",
+      heading: /Freelance Web Tasarımcı/i,
+      provider: "Hazar Volga Ekiz",
+      content: /kurumsal web|web sitesi|Next\.js/i,
+      cases: ["aluplan", "aluplan-destek"],
+    },
+    {
+      slug: "freelance-grafik-tasarimci",
+      heading: /Freelance Grafik Tasarımcı/i,
+      provider: "Hülya Ekiz",
+      content: /Art Director[\s\S]*CFA|CFA[\s\S]*Art Director/i,
+      cases: ["bosch-respect", "travel-cafe", "jhm-studio"],
+    },
+    {
+      slug: "ai-otomasyon-ozel-yazilim",
+      heading: /(?:AI|Yapay Zekâ).*Otomasyon.*Özel Yazılım/i,
+      provider: "Hazar Volga Ekiz",
+      content: /RAG|otomasyon|özel yazılım/i,
+      cases: ["aluplan-destek", "signal", "bimmetraj", "affexai"],
+      stages: [
+        /Aktif kullanımda/i,
+        /Kontrollü teknik pilot/i,
+        /Geliştirme aşamasında/i,
+        /Erken erişim.*davet|davetle|davete özel/i,
+      ],
+    },
+  ];
+
+  for (const service of services) {
+    const response = await fetch(`${base}/${service.slug}`);
+    const raw = await response.text();
+    const html = raw.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+    const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
+    const visibleMain = main.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+    const heading = main
+      .match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]
+      ?.replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ") ?? "";
+
+    assert.equal(response.status, 200, service.slug);
+    assert.match(heading, service.heading, `${service.slug}: server-rendered H1`);
+    assert.match(visibleMain, service.content, `${service.slug}: useful service content`);
+    assert.doesNotMatch(visibleMain, /İstanbul merkezli|based in Istanbul|in Istanbul|aus Istanbul/i, `${service.slug}: no incorrect location claim`);
+    assert.match(raw, new RegExp(`<title>[^<]*${service.heading.source}[^<]*<\\/title>`, "i"));
+
+    for (const project of service.cases) {
+      assert.ok(
+        main.includes(`href="/calismalar/${project}"`),
+        `${service.slug}: ${project} must be a real portfolio link`,
+      );
+    }
+    for (const stage of service.stages ?? []) {
+      assert.match(visibleMain, stage, `${service.slug}: honest stage wording`);
+    }
+
+    const schemas = jsonLdObjects(raw);
+    const serviceSchemas = schemas.flatMap((schema) =>
+      objectsWithType(schema, "Service"),
+    );
+    assert.equal(serviceSchemas.length, 1, `${service.slug}: one Service JSON-LD`);
+    assert.ok(
+      serviceSchemas.some((schema) =>
+        objectsWithType(schema.provider, "Person").some(
+          (provider) => provider.name === service.provider,
+        ),
+      ),
+      `${service.slug}: provider must be Person ${service.provider}`,
+    );
+    assert.equal(
+      schemas.flatMap((schema) => objectsWithType(schema, "LocalBusiness")).length,
+      0,
+      `${service.slug}: do not invent a LocalBusiness entity`,
+    );
+    assert.equal(
+      schemas.flatMap((schema) => objectsWithType(schema, "ProfessionalService")).length,
+      0,
+      `${service.slug}: do not invent a ProfessionalService entity`,
+    );
+  }
+});
+
+test("service hubs, sitemap and llms.txt discover every focused service landing", async () => {
+  const slugs = [
+    "freelance-web-tasarimci",
+    "freelance-grafik-tasarimci",
+    "ai-otomasyon-ozel-yazilim",
+  ];
+  const [{ html: hub }, sitemap, llms] = await Promise.all([
+    page("/hizmetler"),
+    fetch(`${base}/sitemap.xml`).then((response) => response.text()),
+    fetch(`${base}/llms.txt`).then((response) => response.text()),
+  ]);
+
+  for (const slug of slugs) {
+    assert.ok(hub.includes(`href="/${slug}"`), `${slug}: linked from /hizmetler`);
+    assert.match(
+      llms,
+      new RegExp(`https://hazarvolga\\.com\\.tr/${slug}(?:\\)|\\s|$)`),
+      `${slug}: linked from llms.txt`,
+    );
+    for (const prefix of ["", "/en", "/de"]) {
+      const url = `https://hazarvolga.com.tr${prefix}/${slug}`;
+      assert.ok(sitemap.includes(`<loc>${url}</loc>`), `${url}: sitemap entry`);
+    }
+  }
+});
+
+test("selected work features Aluplan Support while FPVLovers remains in the full archive", async () => {
+  const [{ html: home }, { html: archive }] = await Promise.all([
+    page("/"),
+    page("/calismalar"),
+  ]);
+  const selected = home.match(
+    /<section\b[^>]*\bid="secilmis-isler"[^>]*>[\s\S]*?<\/section>/i,
+  )?.[0];
+
+  assert.ok(selected, "the server-rendered selected work section must exist");
+  assert.ok(
+    selected.includes('href="/calismalar/aluplan-destek"'),
+    "allplan.net.tr Aluplan Support must be featured",
+  );
+  assert.match(selected, /allplan\.net\.tr/i);
+  assert.match(selected, /destek talebi platformu/i);
+  assert.ok(
+    !selected.includes('href="/calismalar/fpvlovers"'),
+    "FPVLovers is replaced in selected work",
+  );
+  assert.ok(
+    archive.includes('href="/calismalar/fpvlovers"'),
+    "FPVLovers remains discoverable in the complete archive",
+  );
+});
+
+test("BIMMetraj and FPVLovers visibly disclose their development stage", async () => {
+  for (const slug of ["bimmetraj", "fpvlovers"]) {
+    const { response, html } = await page(`/calismalar/${slug}`);
+    assert.equal(response.status, 200, slug);
+    assert.match(html, /Geliştirme aşamasında/i, `${slug}: honest stage label`);
+  }
 });
