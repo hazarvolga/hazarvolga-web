@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ContactBand } from "@/components/studio/Shell";
 
 export const metadata: Metadata = {
+  alternates: {canonical: "/hakkimizda", languages: {tr: "/hakkimizda", en: "/en/hakkimizda", de: "/de/hakkimizda"}},
   title: "Hakkımızda",
   description:
     "Hülya Ekiz — Art Director. Hazar Volga Ekiz — web ve AI destekli dijital üretim. Birlikte çalışma yaklaşımımız.",

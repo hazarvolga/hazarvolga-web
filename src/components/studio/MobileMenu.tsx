@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 
 export function MobileMenu({
-  links,
+  links, locale = "tr",
 }: {
   links: readonly { href: string; label: string }[];
+  locale?: "tr" | "en" | "de";
 }) {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -27,10 +28,10 @@ export function MobileMenu({
         aria-controls="mobile-nav"
         onClick={() => setOpen(!open)}
       >
-        {open ? "Kapat −" : "Menü +"}
+        {open ? (locale === "en" ? "Close −" : locale === "de" ? "Schließen −" : "Kapat −") : (locale === "en" ? "Menu +" : "Menü +")}
       </button>
-      <nav id="mobile-nav" hidden={!open} aria-label="Mobil gezinme">
-        {[...links, { href: "/iletisim", label: "Projenizi konuşalım ↗" }].map(
+      <nav id="mobile-nav" hidden={!open} aria-label={locale === "en" ? "Mobile navigation" : locale === "de" ? "Mobile Navigation" : "Mobil gezinme"}>
+        {[...links, { href: `${locale === "tr" ? "" : `/${locale}`}/iletisim`, label: locale === "en" ? "Discuss your project ↗" : locale === "de" ? "Projekt besprechen ↗" : "Projenizi konuşalım ↗" }].map(
           (link) => (
             <Link
               key={link.href}

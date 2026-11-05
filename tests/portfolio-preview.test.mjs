@@ -11,6 +11,33 @@ const page = async (path) => {
   return { response, html };
 };
 
+test("production health, SEO and security boundaries are active", async () => {
+  const [home, health, robots, sitemap] = await Promise.all([
+    fetch(`${base}/`),
+    fetch(`${base}/api/health`),
+    fetch(`${base}/robots.txt`),
+    fetch(`${base}/sitemap.xml`),
+  ]);
+
+  assert.equal(home.status, 200);
+  assert.equal(home.headers.get("x-content-type-options"), "nosniff");
+  assert.equal(home.headers.get("x-frame-options"), "DENY");
+  assert.equal(home.headers.get("x-powered-by"), null);
+  assert.equal(health.status, 200);
+  assert.equal((await health.json()).status, "ok");
+  assert.match(await robots.text(), /https:\/\/hazarvolga\.com\.tr\/sitemap\.xml/);
+  assert.match(await sitemap.text(), /https:\/\/hazarvolga\.com\.tr\/calismalar\/signal/);
+
+  for (const path of [
+    "/dashboard",
+    "/api/telemetry",
+    "/api/pulse",
+    "/mail.php",
+  ]) {
+    assert.equal((await fetch(`${base}${path}`)).status, 404, path);
+  }
+});
+
 test("Aluplan Destek communicates its active AI support ticket role", async () => {
   const { html } = await page("/calismalar/aluplan-destek");
   assert.match(html, /Yapay zekâ destekli destek talebi platformu/);
@@ -23,7 +50,7 @@ test("essential portfolio is rendered in Turkish, without waiting for JavaScript
   const { response, html } = await page("/");
   assert.equal(response.status, 200);
   assert.match(html, /<html[^>]*lang="tr"/);
-  assert.match(html, /name="robots"[^>]*noindex/);
+  assert.doesNotMatch(html, /name="robots"[^>]*noindex/);
   assert.match(html, /href="\/calismalar\/bosch-respect"/);
   assert.match(html, /Hülya Ekiz/);
   assert.doesNotMatch(html, /visibility:\s*hidden/);
@@ -33,6 +60,10 @@ test("the working desk and its surrounding portfolio stay useful without JavaScr
   const { response, html } = await page("/");
   assert.equal(response.status, 200);
   assert.match(html, /Masadan parçalar/);
+  const desk = html.match(
+    /<section\b[^>]*\bid="calisma-masasi"[^>]*>[\s\S]*?<\/section>/,
+  )?.[0];
+  assert.ok(desk, "the working desk must be server-rendered");
 
   // The physics enhancement must never be required to render the real work.
   for (const source of [
@@ -41,7 +72,7 @@ test("the working desk and its surrounding portfolio stay useful without JavaScr
     "/portfolio/affexai.jpg",
     "/portfolio/jhm3.jpg",
   ]) {
-    const image = [...html.matchAll(/<img\b[^>]*>/g)]
+    const image = [...desk.matchAll(/<img\b[^>]*>/g)]
       .map(([tag]) => tag)
       .find((tag) => tag.includes(`src="${source}"`));
     assert.ok(image, `${source} must render before hydration`);
@@ -60,6 +91,38 @@ test("the working desk and its surrounding portfolio stay useful without JavaScr
   assert.match(html, /Hazar Volga Ekiz/);
 });
 
+test("the original neural hero preserves its content before animation loads", async () => {
+  const { response, html } = await page("/");
+  assert.equal(response.status, 200);
+  const hero = html.match(
+    /<section\b[^>]*\bclass="home-hero wrap"[^>]*>[\s\S]*?<\/section>/,
+  )?.[0];
+  assert.ok(hero, "the hero must be server-rendered");
+  const heading = hero.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1];
+  assert.ok(heading, "the real portfolio headline must remain in the hero");
+  const text = heading.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+  assert.match(text, /Markanız için\s+tasarım\.\s+İşiniz için\s+teknoloji\./);
+  for (const href of [
+    "/calismalar",
+    "/iletisim",
+    "/calismalar/bosch-respect",
+    "/calismalar/jhm-studio",
+  ]) {
+    assert.ok(hero.includes(`href="${href}"`), `${href} stays usable without WebGL`);
+  }
+  const field = hero.match(
+    /<div\b[^>]*\bclass="hero-neural-field"[^>]*>([\s\S]*?)<div\b[^>]*\bclass="hero-intro"/,
+  )?.[1];
+  assert.ok(field, "the neural field belongs in the hero, before its content");
+  assert.match(
+    field,
+    /<svg\b|<img\b/,
+    "the neural field needs a static visual before its canvas loads",
+  );
+  assert.doesNotMatch(html, /\bid="fikirden-sisteme"/);
+  assert.match(html, /\bid="calisma-masasi"/);
+});
+
 test("public routes, project details and image files are available", async () => {
   for (const path of [
     "/calismalar",
@@ -69,7 +132,7 @@ test("public routes, project details and image files are available", async () =>
   ]) {
     const { response, html } = await page(path);
     assert.equal(response.status, 200, path);
-    assert.match(html, /name="robots"[^>]*noindex/, path);
+    assert.doesNotMatch(html, /name="robots"[^>]*noindex/, path);
   }
   const { html } = await page("/calismalar");
   const paths = [
@@ -79,13 +142,13 @@ test("public routes, project details and image files are available", async () =>
       ),
     ),
   ];
-  assert.equal(paths.length, 23);
+  assert.equal(paths.length, 24);
   const detailHtml = await Promise.all(
     paths.map(async (path) => {
       const result = await page(path);
       assert.equal(result.response.status, 200, path);
       assert.match(result.html, /<h1\b/);
-      assert.match(result.html, /name="robots"[^>]*noindex/, path);
+      assert.doesNotMatch(result.html, /name="robots"[^>]*noindex/, path);
       return result.html;
     }),
   );
@@ -108,6 +171,26 @@ test("public routes, project details and image files are available", async () =>
     (await fetch(`${base}/calismalar/bilinmeyen-proje`)).status,
     404,
   );
+});
+
+test("Signal is presented as a controlled pilot with a public landing and sign-in view", async () => {
+  const { response, html } = await page("/calismalar/signal");
+
+  assert.equal(response.status, 200);
+  assert.match(html, /SIGNAL Broadcast Systems/);
+  assert.match(html, /Kontrollü teknik pilot/);
+  assert.match(html, /href="https:\/\/github\.com\/hazarvolga\/Signal"/);
+  for (const image of [
+    "/portfolio/signal-landing.png",
+    "/portfolio/signal-login.png",
+  ]) {
+    assert.ok(html.includes(image), `${image} must be shown in the project`);
+  }
+  assert.doesNotMatch(
+    html,
+    /ALLPLAN|signal-(?:public|dashboard|automations)\.png/i,
+  );
+  assert.doesNotMatch(html, /production[- ]ready|KVKK uyumlu|GDPR uyumlu/i);
 });
 
 test("the complete archive exposes the additional print and typography projects", async () => {

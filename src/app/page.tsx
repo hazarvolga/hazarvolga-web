@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/lib/portfolio";
@@ -6,11 +7,15 @@ import { ProjectCard } from "@/components/studio/ProjectCard";
 import { ContactBand } from "@/components/studio/Shell";
 import { HeroArtwork } from "@/components/studio/HeroArtwork";
 import { WorkingDesk } from "@/components/studio/WorkingDesk";
+import { NeuralArtwork } from "@/components/studio/NeuralArtwork";
+
+export const metadata: Metadata = { alternates: {canonical: "/", languages: {tr: "/", en: "/en", de: "/de"}} };
 
 export default function Home() {
   return (
     <>
       <section className="home-hero wrap">
+        <div className="hero-neural-field"><NeuralArtwork /></div>
         <div className="hero-intro">
           <span>İstanbul merkezli bağımsız kreatif & dijital stüdyo</span>
           <span>Hazar & Hülya Ekiz</span>

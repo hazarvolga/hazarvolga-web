@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {canonical: "/iletisim", languages: {tr: "/iletisim", en: "/en/iletisim", de: "/de/iletisim"}},
   title: "İletişim",
   description:
     "Hazar & Hülya ile projenizi konuşun. Sanat yönetimi, tasarım, web ve dijital üretim ihtiyaçlarınız için iletişime geçin.",

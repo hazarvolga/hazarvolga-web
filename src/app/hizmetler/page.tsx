@@ -4,6 +4,7 @@ import { services } from "@/lib/studio-services";
 import { ContactBand } from "@/components/studio/Shell";
 
 export const metadata: Metadata = {
+  alternates: {canonical: "/hizmetler", languages: {tr: "/hizmetler", en: "/en/hizmetler", de: "/de/hizmetler"}},
   title: "Hizmetler",
   description:
     "Sanat yönetimi, kampanya, görsel kimlik, web tasarımı ve AI destekli dijital üretim hizmetleri.",

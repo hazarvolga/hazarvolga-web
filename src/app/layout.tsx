@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Syne, Manrope } from "next/font/google";
 import { StudioHeader, StudioFooter } from "@/components/studio/Shell";
 import "./globals.css";
@@ -7,6 +8,7 @@ import "./studio-pages.css";
 import "./studio-responsive.css";
 import "./studio-motion.css";
 import "./studio-desk.css";
+import "./studio-neural.css";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -27,8 +29,7 @@ export const metadata: Metadata = {
   },
   description:
     "Hazar & Hülya: sanat yönetimi, görsel kimlik, web tasarımı ve AI destekli dijital üretim. Çalışmalarımızı ve birlikte neler yapabileceğimizi keşfedin.",
-  // Local design review only. Remove noindex only for an approved release.
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -44,20 +45,21 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = (await headers()).get("x-studio-locale") === "en" ? "en" : (await headers()).get("x-studio-locale") === "de" ? "de" : "tr";
   return (
-    <html lang="tr">
+    <html lang={locale}>
       <body className={`${syne.variable} ${manrope.variable} studio-body`}>
         <a className="skip-link" href="#main-content">
-          İçeriğe geç
+          {locale === "en" ? "Skip to content" : locale === "de" ? "Zum Inhalt" : "İçeriğe geç"}
         </a>
-        <StudioHeader />
+        <StudioHeader locale={locale} />
         <main id="main-content" tabIndex={-1}>
           {children}
         </main>
-        <StudioFooter />
+        <StudioFooter locale={locale} />
       </body>
     </html>
   );

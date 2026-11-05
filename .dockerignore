@@ -1,0 +1,12 @@
+.git
+.github
+.next
+.tmp
+coverage
+node_modules
+npm-debug.log*
+.env*
+*.pem
+credentials.json
+token.json
+HANDOFF.md

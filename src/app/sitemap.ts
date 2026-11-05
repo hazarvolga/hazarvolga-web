@@ -10,5 +10,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/iletisim",
     ...projects.map((project) => `/calismalar/${project.slug}`),
   ];
-  return routes.map((route) => ({ url: `https://hazarvolga.com.tr${route}` }));
+  return routes.flatMap((route) => {
+    const base = "https://hazarvolga.com.tr";
+    const alternatives = { languages: { tr: `${base}${route || "/"}`, en: `${base}/en${route}`, de: `${base}/de${route}` } };
+    return ["", "/en", "/de"].map(prefix => ({ url: `${base}${prefix}${route || (prefix ? "" : "/")}`, alternates: alternatives }));
+  });
 }

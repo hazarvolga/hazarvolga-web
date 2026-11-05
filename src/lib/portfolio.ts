@@ -191,6 +191,46 @@ export const projects: readonly Project[] = [
     tone: "dark",
   }),
   {
+    slug: "signal",
+    title: "SIGNAL Broadcast Systems",
+    subtitle: "Kampanya, otomasyon ve kitle yönetimi için self-hosted ürün girişimi",
+    category: "Dijital ürün",
+    cover: "/portfolio/signal-landing.png",
+    coverAlt: "SIGNAL ürününün herkese açık tanıtım sayfası",
+    images: [
+      {
+        src: "/portfolio/signal-landing.png",
+        alt: "SIGNAL ürününün herkese açık tanıtım sayfası",
+        width: 1440,
+        height: 1000,
+      },
+      {
+        src: "/portfolio/signal-login.png",
+        alt: "SIGNAL kurumsal erişim ve e-posta giriş ekranı",
+        width: 1440,
+        height: 1000,
+      },
+    ],
+    summary:
+      "SIGNAL; kampanya, kitle, form, otomasyon ve e-posta operasyonlarını tek bir self-hosted çalışma alanında buluşturan bağımsız ürün girişimi. Ürün kontrollü teknik pilot aşamasında geliştiriliyor.",
+    approach:
+      "React ve TypeScript arayüzü; Express API, PostgreSQL, Redis ve BullMQ tabanlı iş akışlarıyla birlikte ele alındı. Çok kiracılı rol yönetimi, kampanya üretimi ve müşteri yolculukları ürün yüzeyinde birleştirildi. Portfolyodaki ekranlar yerel pilot verisiyle çalışan gerçek arayüzleri gösteriyor; üretim uygunluğu veya mevzuat uyumluluğu taahhüdü değildir.",
+    credits: [
+      { label: "Proje türü", value: "Bağımsız ürün girişimi" },
+      {
+        label: "Ürün mimarisi ve full-stack geliştirme",
+        value: "Hazar Volga Ekiz",
+      },
+    ],
+    source: {
+      label: "GitHub deposu",
+      url: "https://github.com/hazarvolga/Signal",
+    },
+    status: "Kontrollü teknik pilot",
+    featured: true,
+    tone: "dark",
+  },
+  {
     slug: "travel-cafe",
     title: "Travel Cafe İstanbul",
     subtitle: "Bir fincandan başlayan görsel kimlik",

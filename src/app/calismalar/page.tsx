@@ -4,6 +4,7 @@ import { ProjectFilter } from "@/components/studio/ProjectFilter";
 import { ContactBand } from "@/components/studio/Shell";
 
 export const metadata: Metadata = {
+  alternates: {canonical: "/calismalar", languages: {tr: "/calismalar", en: "/en/calismalar", de: "/de/calismalar"}},
   title: "Çalışmalar",
   description:
     "Hazar & Hülya'nın kampanya, görsel kimlik, web tasarımı ve dijital ürün çalışmaları.",

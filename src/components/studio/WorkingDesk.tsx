@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { deskPieces, type DeskController } from "./desk/layout";
 
-export function WorkingDesk() {
+export function WorkingDesk({locale = "tr"}: {locale?: "tr" | "en" | "de"}) {
+  const lang = locale === "en" ? {heading:"Pieces from the desk",group:"Visual pieces from our work", move:"Use the arrow keys to move or click to rearrange.", hint:"Drag, click or use the arrow keys to arrange.", still:"Different work, one desk.",reset:"Reset", titles:["Travel Cafe","Agency poster","JHM Studio","AffeXAI"], kinds:["Visual identity","Typography","Visual identity","Digital product"], alts:["A piece from the Travel Cafe visual identity","A typographic poster Hülya created for the agency","JHM Studio packaging and label design","The interface of Hazar’s independent product AffeXAI"]} : locale === "de" ? {heading:"Fundstücke vom Tisch",group:"Visuelle Ausschnitte unserer Arbeiten",move:"Mit den Pfeiltasten bewegen oder zum Verschieben klicken.",hint:"Ziehen, klicken oder mit den Pfeiltasten anordnen.",still:"Verschiedene Arbeiten, ein Tisch.",reset:"Zurücksetzen",titles:["Travel Cafe","Agenturplakat","JHM Studio","AffeXAI"],kinds:["Visuelle Identität","Typografie","Visuelle Identität","Digitales Produkt"],alts:["Ein Ausschnitt aus der visuellen Identität von Travel Cafe","Ein typografisches Plakat, das Hülya für die Agentur gestaltete","Verpackungs- und Etikettendesign für JHM Studio","Die Oberfläche von Hazars eigenständigem Produkt AffeXAI"]} : null;
   const surfaceRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<DeskController | null>(null);
   const [interactive, setInteractive] = useState(false);
@@ -81,14 +82,14 @@ export function WorkingDesk() {
   return (
     <div className="working-desk" data-interactive={interactive}>
       <div className="desk-heading">
-        <span>Masadan parçalar</span>
+        <span>{lang?.heading ?? "Masadan parçalar"}</span>
         <span aria-hidden="true">01 — 04</span>
       </div>
       <div
         className="desk-surface"
         ref={surfaceRef}
         role="group"
-        aria-label="Çalışmalarımızdan görsel parçalar"
+        aria-label={lang?.group ?? "Çalışmalarımızdan görsel parçalar"}
         aria-describedby={hintId}
       >
         <span className="desk-print" aria-hidden="true">
@@ -100,7 +101,7 @@ export function WorkingDesk() {
             key={piece.title}
             type="button"
             disabled={!interactive}
-            aria-label={`${piece.title}, ${piece.kind}${interactive ? ". Ok tuşlarıyla taşıyın veya tıklayarak yerini değiştirin." : ""}`}
+            aria-label={`${lang?.titles[index] ?? piece.title}, ${lang?.kinds[index] ?? piece.kind}${interactive ? `. ${lang?.move ?? "Ok tuşlarıyla taşıyın veya tıklayarak yerini değiştirin."}` : ""}`}
             style={{
               left: `${piece.x}%`,
               top: `${piece.y}%`,
@@ -109,7 +110,7 @@ export function WorkingDesk() {
           >
             <Image
               src={piece.image}
-              alt={piece.alt}
+              alt={lang?.alts[index] ?? piece.alt}
               width={index === 3 ? 1440 : 700}
               height={index === 3 ? 1000 : 500}
               unoptimized
@@ -117,7 +118,7 @@ export function WorkingDesk() {
               draggable={false}
             />
             <span className="desk-piece-caption">
-              <span>{piece.title}</span>
+              <span>{lang?.titles[index] ?? piece.title}</span>
               <span aria-hidden="true">0{index + 1}</span>
             </span>
           </button>
@@ -126,12 +127,12 @@ export function WorkingDesk() {
       <div className="desk-toolbar">
         <p id={hintId}>
           {interactive
-            ? "Sürükleyin, tıklayın ya da ok tuşlarıyla yerleştirin."
-            : "Farklı işler, aynı masa."}
+            ? (lang?.hint ?? "Sürükleyin, tıklayın ya da ok tuşlarıyla yerleştirin.")
+            : (lang?.still ?? "Farklı işler, aynı masa.")}
         </p>
         {interactive && (
           <button type="button" onClick={() => controllerRef.current?.reset()}>
-            Yerine koy <span aria-hidden="true">↺</span>
+            {lang?.reset ?? "Yerine koy"} <span aria-hidden="true">↺</span>
           </button>
         )}
       </div>

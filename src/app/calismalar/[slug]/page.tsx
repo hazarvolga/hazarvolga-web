@@ -17,6 +17,7 @@ export async function generateMetadata({
   return project
     ? {
         title: project.title,
+        alternates: { canonical: `/calismalar/${project.slug}`, languages: { tr: `/calismalar/${project.slug}`, en: `/en/calismalar/${project.slug}`, de: `/de/calismalar/${project.slug}` } },
         description: project.summary,
         openGraph: {
           title: project.title,
