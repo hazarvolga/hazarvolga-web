@@ -51,8 +51,18 @@ function loadGoogleTag(measurementId: string) {
   const analyticsWindow = window as unknown as AnalyticsWindow;
   analyticsWindow[`ga-disable-${measurementId}`] = false;
   window.dataLayer = window.dataLayer ?? [];
-  window.gtag = (...args: unknown[]) => window.dataLayer.push(args);
+  window.gtag = function () {
+    // Google tag recognizes commands queued as an arguments object.
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments);
+  };
   window.gtag("consent", "default", {
+    analytics_storage: "granted",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
+  window.gtag("consent", "update", {
     analytics_storage: "granted",
     ad_storage: "denied",
     ad_user_data: "denied",
