@@ -21,6 +21,7 @@ This public website presents selected work by Hülya Ekiz and Hazar Volga Ekiz. 
 ## Selected digital products
 
 - [SIGNAL Broadcast Systems](https://hazarvolga.com.tr/calismalar/signal): A self-hosted campaigns, audiences and automation technical pilot
+- [Prompt Optimizer](https://hazarvolga.com.tr/calismalar/prompt-optimizer): An open-source MIT v1.0.0 execution contract skill for multi-model AI coding agents
 - [Aluplan Support](https://hazarvolga.com.tr/calismalar/aluplan-destek): AI-assisted support, human-reviewed FAQ learning, RAG telemetry and CRM integration
 - [BIMMetraj](https://hazarvolga.com.tr/calismalar/bimmetraj): A construction quantity and quotation product under development
 - [AffeXAI](https://hazarvolga.com.tr/calismalar/affexai): An invitation-only AI-assisted brand communication product venture

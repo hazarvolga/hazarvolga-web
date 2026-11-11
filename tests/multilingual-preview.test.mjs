@@ -45,7 +45,7 @@ test("all languages expose their own indexable server-rendered homepage and lang
 test("all project details have localized main content in English and German", async () => {
   const { html } = await read("/calismalar");
   const paths = [...new Set([...html.matchAll(/href="(\/calismalar\/[^"#?]+)"/g)].map(match => match[1]))];
-  assert.equal(paths.length, 24, "the complete Turkish archive remains available");
+  assert.equal(paths.length, 25, "the complete Turkish archive remains available");
   for (const path of paths) {
     const original = mainText((await read(path)).html);
     assert.ok(original.length > 80, `${path} has meaningful content`);
@@ -61,7 +61,7 @@ test("all project details have localized main content in English and German", as
 });
 
 test("important pages and project details remain in the selected language", async () => {
-  for (const path of ["/calismalar", "/hizmetler", "/hakkimizda", "/iletisim", "/calismalar/aluplan-destek", "/calismalar/bosch-respect", "/calismalar/signal"]) {
+  for (const path of ["/calismalar", "/hizmetler", "/hakkimizda", "/iletisim", "/calismalar/aluplan-destek", "/calismalar/bosch-respect", "/calismalar/signal", "/calismalar/prompt-optimizer"]) {
     const pages = await Promise.all(locales.map(async locale => {
       const route = urlFor(locale, path);
       const { response, html } = await read(route);
@@ -98,6 +98,16 @@ test("important pages and project details remain in the selected language", asyn
         assert.match(html, /signal-workspace-journeys\.webp/);
         assert.match(html, /signal-insights\.webp/);
         assert.doesNotMatch(html, /Anadolu University project article|Projektbericht der Anadolu-Universität/);
+      }
+    }
+    if (path === "/calismalar/prompt-optimizer") {
+      assert.match(visible(pages[0]), /Açık kaynak · v1\.0\.0/);
+      assert.match(visible(pages[1]), /Open source · v1\.0\.0/);
+      assert.match(visible(pages[2]), /Open Source · v1\.0\.0/);
+      for (const html of pages) {
+        assert.match(html, /github\.com\/hazarvolga\/prompt-optimizer/);
+        assert.match(html, /prompt-optimizer-gears\.webp/);
+        assert.match(html, /prompt-optimizer-adapters\.webp/);
       }
     }
   }

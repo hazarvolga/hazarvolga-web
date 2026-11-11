@@ -231,7 +231,7 @@ test("public routes, project details and image files are available", async () =>
       ),
     ),
   ];
-  assert.equal(paths.length, 24);
+  assert.equal(paths.length, 25);
   const detailHtml = await Promise.all(
     paths.map(async (path) => {
       const result = await page(path);
@@ -282,6 +282,24 @@ test("Signal is presented as a controlled pilot with a public landing and sign-i
     /ALLPLAN|signal-(?:public|dashboard|automations)\.png/i,
   );
   assert.doesNotMatch(html, /production[- ]ready|KVKK uyumlu|GDPR uyumlu/i);
+});
+
+test("Prompt Optimizer is presented as an open-source v1.0.0 agent skill with GitHub repository and architecture visuals", async () => {
+  const { response, html } = await page("/calismalar/prompt-optimizer");
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Prompt Optimizer/);
+  assert.match(html, /Açık kaynak · v1\.0\.0/);
+  assert.match(html, /href="https:\/\/github\.com\/hazarvolga\/prompt-optimizer"/);
+  for (const image of [
+    "/portfolio/prompt-optimizer-cover.webp",
+    "/portfolio/prompt-optimizer-gears.webp",
+    "/portfolio/prompt-optimizer-adapters.webp",
+  ]) {
+    assert.ok(html.includes(image), `${image} must be shown in the project`);
+  }
+  const article = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)?.[1] ?? "";
+  assert.doesNotMatch(article, /—|tam otonom|büyüleyici|adeta/i);
 });
 
 test("the complete archive exposes the additional print and typography projects", async () => {

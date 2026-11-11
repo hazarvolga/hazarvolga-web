@@ -273,6 +273,53 @@ export const projects: readonly Project[] = [
     tone: "dark",
   },
   {
+    slug: "prompt-optimizer",
+    title: "Prompt Optimizer",
+    subtitle: "AI kodlama ajanları için açık kaynak görev kontratı yeteneği",
+    category: "Dijital ürün",
+    cover: "/portfolio/prompt-optimizer-cover.webp",
+    coverAlt:
+      "Prompt Optimizer açık kaynak ajan yeteneğinin editoryal mimari kapağı ve üç vitesli kontrat paneli",
+    images: [
+      {
+        src: "/portfolio/prompt-optimizer-cover.webp",
+        alt: "Prompt Optimizer açık kaynak ajan yeteneğinin editoryal mimari kapağı ve üç vitesli kontrat paneli",
+        width: 1400,
+        height: 1000,
+      },
+      {
+        src: "/portfolio/prompt-optimizer-gears.webp",
+        alt: "Prompt Optimizer üç vitesli karar akışı ve insan onaylı görev kontratı önizlemesi",
+        width: 1400,
+        height: 1000,
+      },
+      {
+        src: "/portfolio/prompt-optimizer-adapters.webp",
+        alt: "213 resmi dokümandan damıtılan dört çevrimdışı referans paketi ve çoklu model adaptör matrisi",
+        width: 1400,
+        height: 1000,
+      },
+    ],
+    summary:
+      "Doğal dilde yazılan geliştirme isteklerini, dosyalara dokunulmadan önce aktif modele uyarlanmış ve insan onayına sunulan denetlenebilir görev kontratlarına dönüştüren açık kaynak AI ajan yeteneği. MIT lisansı ve v1.0.0 sürümüyle GitHub üzerinde yayımlanıyor.",
+    approach:
+      "213 resmi teknik doküman sayfası taranıp dış ağ bağımlılığı olmayan dört referans paketine indirgendi. Sistem gelen isteği üç viteste sınıflandırıyor: salt okuma sorularında sıfır ek yükle doğrudan yanıt veriyor, /small modunda tek hedefli cerrahi değişiklik kilidi kuruyor, çok dosyalı işlerde ise önce proje belgelerini okuyup modele özgü kontrat derliyor. Claude 5.5/4.x, Gemini, GPT/Codex ve yerel MLX Qwen çalışma ortamları arasında sözdizimi farklarını otomatik ayıklıyor.",
+    credits: [
+      { label: "Proje türü", value: "Açık kaynak geliştirici aracı · MIT" },
+      {
+        label: "Mimari ve dokümantasyon mühendisliği",
+        value: "Hazar Volga Ekiz",
+      },
+    ],
+    source: {
+      label: "GitHub deposu",
+      url: "https://github.com/hazarvolga/prompt-optimizer",
+    },
+    status: "Açık kaynak · v1.0.0",
+    featured: true,
+    tone: "dark",
+  },
+  {
     slug: "travel-cafe",
     title: "Travel Cafe İstanbul",
     subtitle: "Bir fincandan başlayan görsel kimlik",
